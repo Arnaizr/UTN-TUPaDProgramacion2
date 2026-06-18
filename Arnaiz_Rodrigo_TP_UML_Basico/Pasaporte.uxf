@@ -1,0 +1,33 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>260</x><y>140</y><w>210</w><h>150</h></coordinates><panel_attributes>Pasaporte
+--
+- numero: String
+- fechaEmision: String
+- foto: Foto
+- titular: Titular
+--
++ getTitular(): Titular
++ setTitular(Titular): void
++ getNumero(): String
++ toString(): String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>720</x><y>150</y><w>210</w><h>90</h></coordinates><panel_attributes>Foto
+--
+- imagen: String
+- formato: String
+--
++ toString(): String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>380</y><w>210</w><h>170</h></coordinates><panel_attributes>Titular
+--
+- nombre: String
+- dni: String
+- pasaporte: Pasaporte
+--
++ getPasaporte(): Pasaporte
++ setPasaporte(Pasaporte): void
++ getNombre(): String
++ toString(): String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>360</x><y>280</y><w>40</w><h>120</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1
+</panel_attributes><additional_attributes>10;10;10;100</additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>180</y><w>280</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes><additional_attributes>10;10;260;10</additional_attributes></element></diagram>

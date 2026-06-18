@@ -1,0 +1,33 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>260</x><y>140</y><w>210</w><h>190</h></coordinates><panel_attributes>TarjetaDeCredito
+--
+- numero: String
+- fechaDeVencimiento: String
+- banco: Banco
+- cliente: Cliente
+--
++ getNumero(): String
++ getCliente(): Cliente
++ setCliente(Cliente): void
+- setBanco(Banco): void
++ toString(): String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>720</x><y>150</y><w>210</w><h>90</h></coordinates><panel_attributes>Banco
+--
+- nombre: String
+- cuit: String
+--
++ toString(): String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>260</x><y>450</y><w>210</w><h>130</h></coordinates><panel_attributes>Cliente
+--
+- nombre: String
+- dni: String
+- tarjeta: TarjetaDeCredito
+--
++ getTarjeta(): TarjetaDeCredito
++ setTarjeta(TarjetaDeCredito): void
++ toString(): String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>350</x><y>320</y><w>40</w><h>150</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1
+</panel_attributes><additional_attributes>10;10;10;130</additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>190</y><w>280</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes><additional_attributes>10;10;260;10</additional_attributes></element></diagram>
