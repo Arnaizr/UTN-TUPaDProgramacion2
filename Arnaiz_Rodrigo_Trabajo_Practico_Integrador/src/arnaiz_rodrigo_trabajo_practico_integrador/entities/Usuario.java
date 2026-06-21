@@ -62,9 +62,7 @@ public class Usuario extends Base{
         this.celular = celular;
     }
     public void setContrasenia(String contrasenia) {
-        if (this.contrasenia == null){
             this.contrasenia = contrasenia;
-        }
     }
     public void setRol(Rol rol) {
         this.rol = rol;
@@ -95,6 +93,10 @@ public class Usuario extends Base{
             }
         }
     }
+    //Método para verificar si la contraseña ingresada es válida
+    public boolean verificarContrasenia(String intento){
+        return intento.equals(contrasenia);
+    }
     //Método para calcular el total de los pedidos del usuario
     public void mostrarTotalPedidos(){
         double montoTotal = 0.0;
@@ -110,7 +112,7 @@ public class Usuario extends Base{
       
     @Override
     public String toString() {
-        return "USUARIO: [" + nombre + " " + apellido + "] | Mail: [" + mail + "] | Celular: [" + celular + "] | Rol: [" + rol + "]";
+        return "USUARIO #" + getId() + ": [" + nombre + " " + apellido + "] | Mail: [" + mail + "] | Celular: [" + celular + "] | Rol: [" + rol + "]";
     }
     
     

@@ -11,16 +11,17 @@ public class Producto extends Base{
     private String descripcion;
     private int stock;
     private String imagen;
-    private boolean disponible = true;
+    private boolean disponible;
     private Categoria categoria;
     
-    public Producto(String nombre, double precio, String descripcion, int stock, String imagen, Categoria categoria){
+    public Producto(String nombre, double precio, String descripcion, int stock, String imagen, boolean disponible, Categoria categoria){
         super(); 
         this.setNombre(nombre);
         this.setPrecio(precio);
         this.setDescripcion(descripcion);
         this.setStock(stock);
         this.setImagen(imagen);
+        this.disponible = disponible;
         this.setCategoria(categoria);
     }
 
@@ -102,7 +103,7 @@ public class Producto extends Base{
      
     @Override
     public String toString() {
-        return "Producto: #[" + getId() + "] | [" + nombre + "] | Precio: [$" + String.format("%.2f", precio) + "] | Stock: [" + stock + "]";
+        return "Producto: #[" + getId() + "] | [" + nombre + "] | Precio: [$" + String.format("%.2f", precio) + "] | Stock: [" + stock + "]" + " | Categoria: " + categoria.getNombre();
     }
     
 

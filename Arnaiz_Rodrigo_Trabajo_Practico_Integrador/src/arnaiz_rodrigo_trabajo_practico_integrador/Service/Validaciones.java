@@ -26,10 +26,19 @@ public class Validaciones {
     return positivo;
     }
     
+    private static boolean validarStringNoVacio(String palabra) {
+        boolean valido = true;
+        if (palabra.trim().equals("")) { //Se eliminan espacios antes y delante del String y verifica que no esté vacío
+            valido = false;
+            System.out.println("El campo no puede estar vacío.");
+        }
+        return valido;
+    }    
+    
     public static boolean compararPorId(Base actual, Object obj) {
-    if (actual == obj) return true;
-    if (obj == null || actual.getClass() != obj.getClass()) return false;
-    Base otro = (Base) obj;
-    return actual.getId() == otro.getId();
-}
+        if (actual == obj) return true;
+        if (obj == null || actual.getClass() != obj.getClass()) return false;
+        Base otro = (Base) obj;
+        return actual.getId() == otro.getId();
+    }
 }
