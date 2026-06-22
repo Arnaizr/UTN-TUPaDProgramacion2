@@ -4,6 +4,8 @@ package arnaiz_rodrigo_trabajo_practico_integrador.entities;
  *
  * @author RODRIGO
  */
+import arnaiz_rodrigo_trabajo_practico_integrador.Service.Validaciones;
+import arnaiz_rodrigo_trabajo_practico_integrador.exceptions.InvalidFieldException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -36,6 +38,9 @@ public class Categoria extends Base{
     }
     //Setters
     public void setNombre(String nombre) {
+        if (!Validaciones.validarStringNoVacio(nombre)){
+            throw new InvalidFieldException("El nombre no puede estar vacío.");
+        }
         this.nombre = nombre;
     }
     public void setDescripcion(String descripcion) {

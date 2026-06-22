@@ -3,6 +3,7 @@ package arnaiz_rodrigo_trabajo_practico_integrador.entities;
 
 import arnaiz_rodrigo_trabajo_practico_integrador.enums.Estado;
 import arnaiz_rodrigo_trabajo_practico_integrador.enums.FormaPago;
+import arnaiz_rodrigo_trabajo_practico_integrador.exceptions.DuplicateProductException;
 import arnaiz_rodrigo_trabajo_practico_integrador.interfaces.Calculable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -85,8 +86,7 @@ public class Pedido extends Base implements Calculable {
     //Método para agregar un producto al pedido
     public void addDetallePedido(int cantidad, Producto producto){
         if (findDetallePedidoByProducto(producto) != null){
-            System.out.println("El producto " + producto.getNombre() + " ya se encuentra en el pedido, pruebe modificando la cantidad.");    
-            return;
+            throw new DuplicateProductException("El producto " + producto.getNombre() + " ya se encuentra en el pedido.");    
         }
         this.detalles.add(new DetallePedido(cantidad, producto));
         calcularTotal();
@@ -137,7 +137,7 @@ public class Pedido extends Base implements Calculable {
         
     @Override
     public String toString() {
-        return "Pedido #[" + getId() + "] | Fecha: [" + fecha + "] | Estado: [" + estado + "] | Forma de Pago: [" + formaPago + "]";
+        return "Pedido #[" + getId() + "] | Usuario: [" + usuario.getNombre() +"] | Fecha: [" + fecha + "] | Estado: [" + estado + "] | Forma de Pago: [" + formaPago + "]";
 }
     
 }

@@ -1,6 +1,8 @@
 package arnaiz_rodrigo_trabajo_practico_integrador.entities;
 
+import arnaiz_rodrigo_trabajo_practico_integrador.Service.Validaciones;
 import arnaiz_rodrigo_trabajo_practico_integrador.enums.Rol;
+import arnaiz_rodrigo_trabajo_practico_integrador.exceptions.InvalidFieldException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -50,12 +52,21 @@ public class Usuario extends Base{
     }
     //Setters
     public void setNombre(String nombre) {
+        if (!Validaciones.validarStringNoVacio(nombre)){
+            throw new InvalidFieldException("El nombre no puede estar vacío.");
+        }
         this.nombre = nombre;
     }
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
     public void setMail(String mail) {
+        if (!Validaciones.validarStringNoVacio(mail)){
+            throw new InvalidFieldException("El mail no puede estar vacío.");
+        }
+        if (!Validaciones.validarFormatoMail(mail)){
+            throw new InvalidFieldException("El formato del mail no es válido.");
+        }
         this.mail = mail;
     }
     public void setCelular(String celular) {
@@ -84,7 +95,7 @@ public class Usuario extends Base{
            }
         }
     }
-    //Método para eliminar un producto de la categoría (necesario para la relación bilateral
+    //Método para eliminar un pedido del usuario(necesario para la relación bilateral
     public void eliminarPedido(Pedido pedido){
         if (pedido != null && pedidos.contains(pedido)){
             pedidos.remove(pedido);

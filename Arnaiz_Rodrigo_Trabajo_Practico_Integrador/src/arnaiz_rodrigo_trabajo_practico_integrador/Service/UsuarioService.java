@@ -6,6 +6,7 @@ import arnaiz_rodrigo_trabajo_practico_integrador.enums.Rol;
 import arnaiz_rodrigo_trabajo_practico_integrador.exceptions.IncorrectPasswordException;
 import arnaiz_rodrigo_trabajo_practico_integrador.exceptions.DuplicateMailException;
 import arnaiz_rodrigo_trabajo_practico_integrador.exceptions.EntityNotFoundException;
+import arnaiz_rodrigo_trabajo_practico_integrador.exceptions.InvalidFieldException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -89,7 +90,7 @@ public class UsuarioService {
                 }
             System.out.println("Se cambió el atributo " + campo.name() + " del usuario : #" + usuarioAEditar.getId() + " por: " + nuevoValor + ".");
         }
-        catch (EntityNotFoundException | DuplicateMailException e){
+        catch (EntityNotFoundException | DuplicateMailException | InvalidFieldException e){
             System.out.println(e.getMessage());
         }
     }

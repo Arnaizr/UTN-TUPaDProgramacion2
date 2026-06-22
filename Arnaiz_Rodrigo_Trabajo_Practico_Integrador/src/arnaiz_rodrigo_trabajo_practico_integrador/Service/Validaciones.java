@@ -1,5 +1,4 @@
 package arnaiz_rodrigo_trabajo_practico_integrador.Service;
-
 import arnaiz_rodrigo_trabajo_practico_integrador.entities.Base;
 
 /**
@@ -9,30 +8,15 @@ import arnaiz_rodrigo_trabajo_practico_integrador.entities.Base;
 public class Validaciones {
         //Método para validar que un int no sea negativo
     public static boolean validarIntNoNegativo(int num) {
-        boolean valido = true;
-        if (num < 0) {
-            valido = false;
-            System.out.println("ERROR: El valor ingresado no puede ser negativo.");
-        }
-        return valido;
+        return num < 0;
     }
     //Método para validar un double positivo
     public static boolean validarDoublePositivo (double num) {
-        boolean positivo = true;
-        if (num <= 0){
-            positivo = false;
-            System.out.println("ERROR: El valor ingresado debe ser positivo.");
-        }
-    return positivo;
+        return num < 0;
     }
     
-    private static boolean validarStringNoVacio(String palabra) {
-        boolean valido = true;
-        if (palabra.trim().equals("")) { //Se eliminan espacios antes y delante del String y verifica que no esté vacío
-            valido = false;
-            System.out.println("El campo no puede estar vacío.");
-        }
-        return valido;
+    public static boolean validarStringNoVacio(String texto) {
+        return (texto != null) && (!texto.trim().equals(""));
     }    
     
     public static boolean compararPorId(Base actual, Object obj) {
@@ -41,4 +25,9 @@ public class Validaciones {
         Base otro = (Base) obj;
         return actual.getId() == otro.getId();
     }
+    
+    public static boolean validarFormatoMail(String mail) {
+        return mail != null && mail.contains("@") && !mail.contains(" ");
+    }
+
 }

@@ -1,6 +1,7 @@
 package arnaiz_rodrigo_trabajo_practico_integrador.entities;
 
 import arnaiz_rodrigo_trabajo_practico_integrador.Service.Validaciones;
+import arnaiz_rodrigo_trabajo_practico_integrador.exceptions.InvalidFieldException;
 /**
  *
  * @author RODRIGO
@@ -21,7 +22,7 @@ public class Producto extends Base{
         this.setDescripcion(descripcion);
         this.setStock(stock);
         this.setImagen(imagen);
-        this.disponible = disponible;
+        this.setDisponible(disponible);
         this.setCategoria(categoria);
     }
 
@@ -30,6 +31,9 @@ public class Producto extends Base{
     }
 
     public void setNombre(String nombre) {
+        if (!Validaciones.validarStringNoVacio(nombre)){
+            throw new InvalidFieldException("El nombre no puede estar vacío.");
+        }
         this.nombre = nombre;
     }
 
@@ -38,9 +42,18 @@ public class Producto extends Base{
     }
 
     public void setPrecio(double precio) {
-        if (Validaciones.validarDoublePositivo(precio)){ //Se incorpora una validación simple para que el precio no sea negativo
-        this.precio = precio;
+        if (!Validaciones.validarDoublePositivo(precio)){
+            throw new InvalidFieldException("El precio debe ser positivo.");
         }
+        this.precio = precio;
+    }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
     }
 
     public String getDescripcion() {
@@ -56,9 +69,10 @@ public class Producto extends Base{
     }
 
     public void setStock(int stock) {
-        if (Validaciones.validarIntNoNegativo(stock)){ //Se incorpora una validacion simple para que el stock no sea negativo
-        this.stock = stock;
+        if (!Validaciones.validarIntNoNegativo(stock)){
+            throw new InvalidFieldException("El stock no puede ser negativo.");
         }
+        this.stock = stock;
     }
 
     public String getImagen() {
@@ -95,12 +109,7 @@ public class Producto extends Base{
         System.out.println("Producto: #[" + getId() + "] | [" + nombre + "] | Precio: [$" + String.format("%.2f", precio) + "]| Stock: [" + stock + "]\n" +
                 imagen + "\nDescripción: [" + descripcion + ".\nDisponible: " + (disponible ? "Si" : "No") + "\n");
     }
-    //Método para cambiar la disponibilidad del producto
-    public boolean isDisponible(){
-               disponible = stock > 0; //Si hay al menos un producto en stock se considera disponible
-           return disponible;
-    }
-     
+    
     @Override
     public String toString() {
         return "Producto: #[" + getId() + "] | [" + nombre + "] | Precio: [$" + String.format("%.2f", precio) + "] | Stock: [" + stock + "]" + " | Categoria: " + categoria.getNombre();

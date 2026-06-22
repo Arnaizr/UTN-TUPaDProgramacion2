@@ -1,5 +1,8 @@
 package arnaiz_rodrigo_trabajo_practico_integrador.entities;
 
+import arnaiz_rodrigo_trabajo_practico_integrador.Service.Validaciones;
+import arnaiz_rodrigo_trabajo_practico_integrador.exceptions.InvalidFieldException;
+
 /**
  *
  * @author RODRIGO
@@ -29,22 +32,21 @@ public class DetallePedido extends Base {
 
     //Setters
     public void setCantidad(int cantidad){
-        if (validarCantidad(cantidad)){ //Se hace una verificación que la cantidad no sea negativa o exceda al stock
-            this.cantidad = cantidad;
-            subtotal = calcularSubtotal(); //Se recalcula el subtotal con la actualización de los datos
-        }
+        validarCantidad(cantidad); //Se hace una verificación que la cantidad no sea negativa o exceda al stock
+        this.cantidad = cantidad;
+        subtotal = calcularSubtotal(); //Se recalcula el subtotal con la actualización de los datos
     }
 
     public void setProducto(Producto producto){
+        if (producto == null){
+            throw new InvalidFieldException("El producto no puede ser estar vacío.");
+        }
         this.producto = producto;
-        subtotal = calcularSubtotal(); //Se recalcula el subtotal con la actualización de los datos
+        subtotal = calcularSubtotal();
     }
     private double calcularSubtotal(){
     subtotal = 0.0; //Se reseta el subtotal cada vez que se invoca al método
-    if (producto == null){
-        System.out.println("Error: El producto no puede estar vacío"); //Si no hay producto el subtotal es 0
-    }
-    else if (producto.isDisponible()){ //Se hace una verificación que el producto se encuentre disponible (stock > 0)
+    if (producto.isDisponible()){ //Se hace una verificación que el producto se encuentre disponible
         subtotal = cantidad * producto.getPrecio(); 
     }
     else{
@@ -59,15 +61,12 @@ public class DetallePedido extends Base {
     }
     //Validaciones 
     //Método para validar que la cantidad cumpla las condiciones
-    private boolean validarCantidad(int num) {
-        if (producto == null) return false; //Si el producto es null retorna falso
-        if (num < 0) {
-            System.out.println("ERROR: El valor ingresado no puede ser negativo.");
-            return false;
-        }else if (num > producto.getStock()){ //Se valida que haya suficiente stock del producto para encargar
-            System.out.println("ERROR: No hay stock suficiente.");
-            return false;
+    private void validarCantidad(int num) {
+        if (!Validaciones.validarIntNoNegativo(num)) {
+            throw new InvalidFieldException("ERROR: El valor ingresado no puede ser negativo.");
         }
-        return true;
+        if (num > producto.getStock()){ //Se valida que haya suficiente stock del producto para encargar
+            throw new InvalidFieldException("ERROR: No hay stock suficiente.");
+        }
     }
 }
