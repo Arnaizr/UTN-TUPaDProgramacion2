@@ -321,7 +321,7 @@ Durante el desarrollo se implementaron los siguientes conceptos de Programación
 
 Se incorpora:
 
-- Link a video de ejecución del código:
+- Link a video de ejecución del código: https://youtu.be/zOIo1SvxB8U
 
 
 - Link a archivo con documentación académica y teórica:
