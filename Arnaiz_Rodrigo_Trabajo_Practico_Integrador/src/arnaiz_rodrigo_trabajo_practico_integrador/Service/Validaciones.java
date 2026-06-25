@@ -1,5 +1,4 @@
 package arnaiz_rodrigo_trabajo_practico_integrador.Service;
-import arnaiz_rodrigo_trabajo_practico_integrador.entities.Base;
 
 /**
  *
@@ -11,7 +10,7 @@ public class Validaciones {
         return num < 0;
     }
     //Método para validar un double positivo
-    public static boolean validarDoublePositivo (double num) {
+    public static boolean validarDoubleNoNegativo (double num) {
         return num < 0;
     }
     
@@ -19,15 +18,10 @@ public class Validaciones {
         return (texto != null) && (!texto.trim().equals(""));
     }    
     
-    public static boolean compararPorId(Base actual, Object obj) {
-        if (actual == obj) return true;
-        if (obj == null || actual.getClass() != obj.getClass()) return false;
-        Base otro = (Base) obj;
-        return actual.getId() == otro.getId();
-    }
     
     public static boolean validarFormatoMail(String mail) {
         return mail != null && mail.contains("@") && !mail.contains(" ");
     }
-
+    
+    
 }

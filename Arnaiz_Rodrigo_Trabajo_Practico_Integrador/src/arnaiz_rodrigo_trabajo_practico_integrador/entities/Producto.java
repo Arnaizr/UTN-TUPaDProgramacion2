@@ -14,9 +14,10 @@ public class Producto extends Base{
     private String imagen;
     private boolean disponible;
     private Categoria categoria;
+    private static long contadorId = 0;  //Se crea un contador estático de clase para la instanciación automática del id
     
     public Producto(String nombre, double precio, String descripcion, int stock, String imagen, boolean disponible, Categoria categoria){
-        super(); 
+        super(++contadorId); //Se envía como parámetro el contador incrementado a la clase base
         this.setNombre(nombre);
         this.setPrecio(precio);
         this.setDescripcion(descripcion);
@@ -42,7 +43,7 @@ public class Producto extends Base{
     }
 
     public void setPrecio(double precio) {
-        if (!Validaciones.validarDoublePositivo(precio)){
+        if (Validaciones.validarDoubleNoNegativo(precio)){
             throw new InvalidFieldException("El precio debe ser positivo.");
         }
         this.precio = precio;
@@ -69,7 +70,7 @@ public class Producto extends Base{
     }
 
     public void setStock(int stock) {
-        if (!Validaciones.validarIntNoNegativo(stock)){
+        if (Validaciones.validarIntNoNegativo(stock)){
             throw new InvalidFieldException("El stock no puede ser negativo.");
         }
         this.stock = stock;

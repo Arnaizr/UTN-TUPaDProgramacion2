@@ -18,9 +18,10 @@ public class Categoria extends Base{
     private String nombre;
     private String descripcion;
     private final List<Producto> productos;
+    private static long contadorId = 0;  //Se crea un contador estático de clase para la instanciación automática del id
  
     public Categoria(String nombre, String descripcion) {
-        super();
+        super(++contadorId); //Se envía como parámetro el contador incrementado a la clase base
         this.setNombre(nombre);
         this.setDescripcion(descripcion);
         this.productos = new ArrayList<>();

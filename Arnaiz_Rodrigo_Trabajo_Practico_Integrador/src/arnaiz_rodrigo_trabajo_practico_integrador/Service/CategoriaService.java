@@ -1,6 +1,7 @@
  package arnaiz_rodrigo_trabajo_practico_integrador.Service;
 
 import arnaiz_rodrigo_trabajo_practico_integrador.entities.Categoria;
+import arnaiz_rodrigo_trabajo_practico_integrador.entities.Producto;
 import arnaiz_rodrigo_trabajo_practico_integrador.enums.CampoCategoria;
 import arnaiz_rodrigo_trabajo_practico_integrador.exceptions.DuplicateEntityException;
 import arnaiz_rodrigo_trabajo_practico_integrador.exceptions.EntityNotEmptyException;
@@ -32,11 +33,11 @@ public class CategoriaService {
             System.out.println("No hay categorias cargadas en el sistema.");
             return;
         }
-        System.out.println("================================================================");
+        System.out.println("=======================================================================================================");
         for (Categoria categoria : activas) {
             System.out.println(categoria);
         }
-        System.out.println("================================================================");
+        System.out.println("=======================================================================================================\n");
     }
     
     
@@ -68,14 +69,20 @@ public class CategoriaService {
     //Método para eliminar una categoria por su id
     public void deleteCategoriaById(long id){
         try {
-            Categoria categoriaAEliminar = findCategoriaById(id); //Se busca la categoria con el id ingresado
-            if (!categoriaAEliminar.getProductos().isEmpty()){ //Se verifica que la categoría esté vacía y se lanza una excepción si no lo está
-                throw new EntityNotEmptyException("La categoría " + categoriaAEliminar.getNombre() + " tiene productos asociados");
+            Categoria categoriaAEliminar = findCategoriaById(id);
+            List<Producto> productosActivos = new ArrayList<>(); //Se crea una lista con productos activos (isEliminado = false)
+            for (Producto producto : categoriaAEliminar.getProductos()) {
+               if (!producto.isEliminado()){
+                    productosActivos.add(producto);
+                }
             }
-            categoriaAEliminar.setEliminado(true); //Se hace la baja lógica de la categoria
+            if (!productosActivos.isEmpty()){ //Se verifica que la lista de activos esté vacía antes de eliminar
+                throw new EntityNotEmptyException("La categoría " + categoriaAEliminar.getNombre() + " tiene productos asociados.");
+            }
+            categoriaAEliminar.setEliminado(true);
             System.out.println("Se eliminó la categoria con id: " + id);
         }
-        catch (EntityNotFoundException | EntityNotEmptyException e){ //Se atrapa la excepción de no encontrar la categoría o que no está vacía
+        catch (EntityNotFoundException | EntityNotEmptyException e){
             System.out.println(e.getMessage());
         }
     }

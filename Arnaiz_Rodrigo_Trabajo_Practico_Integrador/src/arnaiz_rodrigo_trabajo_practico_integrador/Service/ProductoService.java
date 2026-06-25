@@ -32,11 +32,11 @@ public class ProductoService {
             System.out.println("No hay productos cargados en el sistema.");
             return;
         }
-        System.out.println("================================================================");
+        System.out.println("=======================================================================================================");        
         for (Producto producto : activos) {
             System.out.println(producto);
         }
-        System.out.println("================================================================");
+        System.out.println("=======================================================================================================\n");
     }
     
     public Producto createProducto(String nombre, double precio, String descripcion, int stock, String imagen, boolean disponible, long idCategoria){
@@ -66,11 +66,11 @@ public class ProductoService {
         try {
             Producto productoAEditar = findProductoById(id);
             Categoria categoriaAInstanciar = null;
-            
+            boolean seModificoAlgo = false;
             if (idCategoria != null) {
                 categoriaAInstanciar = categoriaService.findCategoriaById(idCategoria); // si falla lanza la excepción EntityNotFound y no se modificaron los otros atributos
             }
-            if (precio != null && !Validaciones.validarDoublePositivo(precio)){ // si falla lanza la excepción antes de editar nada
+            if (precio != null && !Validaciones.validarDoubleNoNegativo(precio)){ // si falla lanza la excepción antes de editar nada
                 throw new InvalidFieldException("El precio debe ser positivo.");
             }
             if (stock != null && !Validaciones.validarIntNoNegativo(stock)){ //si falla lanza la excepción antes de editar nada
@@ -82,30 +82,40 @@ public class ProductoService {
             if (nombre != null){
                 productoAEditar.setNombre(nombre);
                 System.out.println("Se actualizó el nombre a: " + nombre + ".");
+                seModificoAlgo = true;
             }
             if (precio != null){
                 productoAEditar.setPrecio(precio);
                 System.out.println("Se actualizó el precio a: $" + String.format("%.2f", precio) + ".");
+                seModificoAlgo = true;
             }
             if (descripcion != null){
                 productoAEditar.setDescripcion(descripcion);
                 System.out.println("Se actualizó la descripción.");
+                seModificoAlgo = true;
             }
             if (stock != null){
                 productoAEditar.setStock(stock);
                 System.out.println("Se actualizó el stock a: " + stock + ".");
+                seModificoAlgo = true;
             }
             if (imagen != null){
                 productoAEditar.setImagen(imagen);
                 System.out.println("Se actualizó la imagen.");
+                seModificoAlgo = true;
             }
             if (disponible != null){
                 productoAEditar.setDisponible(disponible);
                 System.out.println("Se actualizó la disponibilidad a: " + (disponible ? "Sí" : "No") + ".");
+                seModificoAlgo = true;
             }
             if (categoriaAInstanciar != null){
                 productoAEditar.setCategoria(categoriaAInstanciar);
                 System.out.println("Se actualizó la categoría a: " + categoriaAInstanciar.getNombre() + ".");
+                seModificoAlgo = true;
+            }
+            if (!seModificoAlgo){
+                System.out.println("No se realizaron cambios.");
             }
         }
         catch (EntityNotFoundException | InvalidFieldException e){

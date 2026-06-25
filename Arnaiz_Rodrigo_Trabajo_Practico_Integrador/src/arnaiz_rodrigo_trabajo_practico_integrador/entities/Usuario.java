@@ -19,10 +19,11 @@ public class Usuario extends Base{
     private String contrasenia;
     private Rol rol;
     private final List<Pedido> pedidos;
+    private static long contadorId = 0;  //Se crea un contador estático de clase para la instanciación automática del id
     
 
     public Usuario(String nombre, String apellido, String mail, String celular, String contrasenia, Rol rol) {
-        super(); 
+        super(++contadorId); //Se envía como parámetro el contador incrementado a la clase base
         this.setNombre(nombre);
         this.setApellido(apellido);
         this.setMail(mail);
@@ -111,14 +112,16 @@ public class Usuario extends Base{
     //Método para calcular el total de los pedidos del usuario
     public void mostrarTotalPedidos(){
         double montoTotal = 0.0;
-        System.out.println("================================================================");
+        System.out.println("=======================================================================================================");
         for (Pedido pedido : pedidos) {
+            if (!pedido.isEliminado()){
             montoTotal += pedido.getTotal();
             System.out.println(pedido);
             pedido.mostrarDetalles(); //Se llama al pedido específico de cada pedido (tell, don't ask)
+            }
         }
         System.out.println("TOTAL ACUMULADO del usuario: $" + String.format("%.2f", montoTotal));
-        System.out.println("================================================================");
+        System.out.println("=======================================================================================================\n");
     }
       
     @Override

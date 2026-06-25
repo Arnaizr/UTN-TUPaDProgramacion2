@@ -10,10 +10,10 @@ public abstract class Base {
     private final long id;
     private boolean eliminado = false;
     private final LocalDateTime createdAt;
-    private static long contadorId = 0;
     
-    public Base(){
-        this.id = ++contadorId;
+    
+    public Base(long id){ //Se recibe únicamente como parámetro el id que cada clase crea independientemente
+        this.id =  id;
         this.createdAt = LocalDateTime.now();
     }
 

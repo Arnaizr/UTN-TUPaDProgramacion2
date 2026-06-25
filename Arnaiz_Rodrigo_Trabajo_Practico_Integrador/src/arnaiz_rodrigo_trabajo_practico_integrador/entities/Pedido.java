@@ -4,6 +4,7 @@ package arnaiz_rodrigo_trabajo_practico_integrador.entities;
 import arnaiz_rodrigo_trabajo_practico_integrador.enums.Estado;
 import arnaiz_rodrigo_trabajo_practico_integrador.enums.FormaPago;
 import arnaiz_rodrigo_trabajo_practico_integrador.exceptions.DuplicateProductException;
+import arnaiz_rodrigo_trabajo_practico_integrador.exceptions.InvalidFieldException;
 import arnaiz_rodrigo_trabajo_practico_integrador.interfaces.Calculable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,9 +23,11 @@ public class Pedido extends Base implements Calculable {
     private FormaPago formaPago;
     private final List<DetallePedido> detalles;
     private Usuario usuario;
+    private static long contadorId = 0;  //Se crea un contador estático de clase para la instanciación automática del id
+    private static long contadorDetalles = 0;  //Se crea un contador estático de clase para la instanciación automática de los detalles
 	
     public Pedido (FormaPago formaPago, Usuario usuario){
-        super(); 
+        super(++contadorId); //Se envía como parámetro el contador incrementado a la clase base
         this.fecha = LocalDate.now();
         this.estado = Estado.PENDIENTE;
         this.setFormaPago(formaPago);
@@ -85,10 +88,14 @@ public class Pedido extends Base implements Calculable {
     //Métodos
     //Método para agregar un producto al pedido
     public void addDetallePedido(int cantidad, Producto producto){
+        if (producto == null){
+            throw new InvalidFieldException("El producto no puede ser nulo.");
+           }
         if (findDetallePedidoByProducto(producto) != null){
-            throw new DuplicateProductException("El producto " + producto.getNombre() + " ya se encuentra en el pedido.");    
+            throw new DuplicateProductException("El producto " + producto.getNombre() + " ya se encuentra en el pedido.");
         }
-        this.detalles.add(new DetallePedido(cantidad, producto));
+        DetallePedido.validarCantidad(cantidad, producto);
+        this.detalles.add(new DetallePedido(++contadorDetalles, cantidad, producto));
         calcularTotal();
     }
 	
@@ -117,22 +124,26 @@ public class Pedido extends Base implements Calculable {
             calcularTotal();
         }
     }
-    //Método para mostrar detalles de pedidos 
+    
     public void mostrarDetalles(){
-        System.out.println("--------------------------------------");
+        System.out.println("=======================================================================================================");
+        System.out.println("-------------------------------------------------------------------------------------------------------");
         for (DetallePedido detalle : detalles) {
-            System.out.println(detalle);
+            if (!detalle.isEliminado()){
+                System.out.println(detalle);
+            }
         }
         System.out.println("TOTAL DEL PEDIDO: $" + String.format("%.2f", total));
-        System.out.println("--------------------------------------");
-
+        System.out.println("-------------------------------------------------------------------------------------------------------\n");
     }
     @Override
     public void calcularTotal(){
-        total = 0.0; //Se reinicia cada vez que se llama al método para no acumular sobre el total anterior
-            for (DetallePedido detalle : detalles) {
-            total += detalle.getSubtotal();
+        total = 0.0;
+        for (DetallePedido detalle : detalles) {
+            if (!detalle.isEliminado()){
+                total += detalle.getSubtotal();
             }
+        }
     }
         
     @Override

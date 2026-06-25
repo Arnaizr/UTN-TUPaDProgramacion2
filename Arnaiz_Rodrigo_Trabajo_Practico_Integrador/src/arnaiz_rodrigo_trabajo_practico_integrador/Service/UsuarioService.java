@@ -33,11 +33,11 @@ public class UsuarioService {
             System.out.println("No hay usuarios cargados en el sistema.");
             return;
         }
-        System.out.println("================================================================");
+        System.out.println("=======================================================================================================");
         for (Usuario usuario : activos) {
             System.out.println(usuario);
         }
-        System.out.println("================================================================");
+        System.out.println("=======================================================================================================\n");
     }
     
     public Usuario createUsuario(String nombre, String apellido, String mail, String celular, String contrasenia, Rol rol){
@@ -86,7 +86,7 @@ public class UsuarioService {
                             usuarioAEditar.setMail(nuevoValor);
                             }
                 case CELULAR -> usuarioAEditar.setCelular(nuevoValor);
-                case ROL -> usuarioAEditar.setRol(Rol.valueOf(nuevoValor));
+                case ROL -> usuarioAEditar.setRol(Rol.valueOf(nuevoValor)); //Se convierte nuevamente a un Rol válido
                 }
             System.out.println("Se cambió el atributo " + campo.name() + " del usuario : #" + usuarioAEditar.getId() + " por: " + nuevoValor + ".");
         }
@@ -94,7 +94,7 @@ public class UsuarioService {
             System.out.println(e.getMessage());
         }
     }
-    
+    //Método para cambiar la contraseña de un usuario (se pide la contraseña vieja)
     public void cambiarContrasenia(long id, String contraseniaActual, String contraseniaNueva){
         try{
             Usuario usuario = findUsuarioById(id);

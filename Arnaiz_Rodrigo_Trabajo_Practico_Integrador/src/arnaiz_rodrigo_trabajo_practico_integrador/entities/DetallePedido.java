@@ -12,8 +12,8 @@ public class DetallePedido extends Base {
     private double subtotal;
     private Producto producto;
 	
-    public DetallePedido (int cantidad, Producto producto){
-        super();
+    public DetallePedido (long id, int cantidad, Producto producto){
+        super(id); //Se envía como parámetro el id enviado por la clase pedido
         this.setProducto(producto);
         this.setCantidad(cantidad);
     }
@@ -32,7 +32,7 @@ public class DetallePedido extends Base {
 
     //Setters
     public void setCantidad(int cantidad){
-        validarCantidad(cantidad); //Se hace una verificación que la cantidad no sea negativa o exceda al stock
+        validarCantidad(cantidad, this.producto); //Se hace una verificación que la cantidad no sea negativa o exceda al stock
         this.cantidad = cantidad;
         subtotal = calcularSubtotal(); //Se recalcula el subtotal con la actualización de los datos
     }
@@ -57,12 +57,12 @@ public class DetallePedido extends Base {
 	
     @Override
     public String toString() {
-        return "· DetallePedido #[" + getId() + "]: [" + producto.getNombre() + "] x [" + cantidad + "] => Subtotal: $" + String.format("%.2f", subtotal);
+        return "· DetallePedido #[" + getId() + "]: [" + producto.getNombre() + " (id#" + producto.getId() + "] x [" + cantidad + "] => Subtotal: $" + String.format("%.2f", subtotal);
     }
     //Validaciones 
     //Método para validar que la cantidad cumpla las condiciones
-    private void validarCantidad(int num) {
-        if (!Validaciones.validarIntNoNegativo(num)) {
+    public static void validarCantidad(int num, Producto producto) {
+        if (Validaciones.validarIntNoNegativo(num)) {
             throw new InvalidFieldException("ERROR: El valor ingresado no puede ser negativo.");
         }
         if (num > producto.getStock()){ //Se valida que haya suficiente stock del producto para encargar
