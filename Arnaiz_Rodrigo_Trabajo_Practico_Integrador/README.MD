@@ -1,138 +1,323 @@
-Trabajo Práctico Integrador – Programación 2
+# 🍔 Food Store Management System
 
-Integrante:
+Trabajo Práctico Integrador de Programación II desarrollado en Java.
 
-Arnaiz Rodrigo Martín - arnaizrodrigomartin@gmail.com
+# Trabajo Práctico Integrador – Programación II
 
-Descripción del programa
-Este programa permite gestionar un Food Store utilizando clases y colecciones como almacenamiento en memoria.
+## Integrante
 
-El sistema se ejecuta, crea nuevas entidades precargadas y permite mediante un menú interactivo:
+**Arnaiz Rodrigo Martín**  
+📧 arnaizrodrigomartin@gmail.com
 
-Buscar entidades (Categorías, Productos, Usuarios y Pedidos).
-Listar las entidades en memoria.
-Agregar entidades.
-Editar entidades.
-Borrar entidades con permanencia en la memoria (Soft Delete).
-El objetivo del proyecto es aplicar las bases de la programación orientada a objetos, modularizar correctamente las funciones de cada clase y agruparlas por su funcionalidad
-También se aplican los principios de relaciones UML, herencia, poliformismo y manejo de excepciones.
+---
 
-Funcionalidades principales
-Listado
-Listar entidades en memoria
-Filtrar entidades eliminadas
-Listar historial de usuarios eliminados
-Listar pedidos de cada usuario
-Listar detalles de cada pedido
-Adición
-Agregar nuevas entidades a las colecciones (generación automática de id)
-Validar datos de ingreso con manejo de excepciones
-Validar entradas repetidas
-Agregar nuevas entidades
-Edición
-Editar atributos de las entidades
-Validaciones de ingreso con manejo de excepciones
-Edición de pedidos
-Incorporación de productos, eliminación
-Modificación de cantidades con actualización automática de totales y subtotales
-Eliminación
-Eliminación de categorías con validación de productos asociados
-Eliminación de productos incluidos en pedidos
-Eliminación de usuarios con permanencia en el historial
+# Descripción del programa
 
-Dataset
-Al margen de los ingresos del usuario hay entidades precargadas en el sistema:
+Este programa permite gestionar un **Food Store** utilizando clases y colecciones como almacenamiento en memoria.
 
-Categoria (nombre, descripcion) (rel 1...n con productos)
-Productos (nombre, descripcion, precio, stock, disponibilidad, imagen, Categoria) (rel n...1 con categoria) (rel 1...n con detallePedido)
-Usuario (nombre, apellido, mail, celular, contraseña, Rol) (rel 1...n con pedidos)
-Pedido (FormaPago, Estado) (rel 1...n con detalles) (rel n...1 con usuario)
-DetallePedido (cantidad, Producto) (rel n...1 con pedido) (rel n...1 con producto)
+El sistema se ejecuta, crea entidades precargadas y permite, mediante un menú interactivo:
 
-Con ejemplos:
+- Buscar entidades (Categorías, Productos, Usuarios y Pedidos).
+- Listar entidades almacenadas en memoria.
+- Agregar nuevas entidades.
+- Editar entidades existentes.
+- Eliminar entidades mediante **Soft Delete** (permanencia en memoria).
 
-Categoria("Verduras", "Tubérculos, raíces, bulbos, hojas")
-Producto("Papa", 5, "Tubérculo", 30, "C:/Imagenes/papa.jpg", true, verduras.getId())
-Usuario("Jose", "Mengano", "menganito88@mailfalso.com", "2215558833", "menga123", Rol.ADMIN)
+El objetivo del proyecto es aplicar los conceptos fundamentales de la **Programación Orientada a Objetos**, modularizando correctamente las responsabilidades de cada clase y agrupándolas según su funcionalidad.
+
+También se aplican conceptos de:
+
+- Relaciones UML.
+- Herencia.
+- Polimorfismo.
+- Manejo de excepciones.
+- Validación de datos.
+
+---
+
+# Funcionalidades principales
+
+## Listado
+
+- Listar entidades almacenadas en memoria.
+- Filtrar entidades eliminadas.
+- Listar historial de usuarios eliminados.
+- Listar pedidos de cada usuario.
+- Listar detalles de cada pedido.
+
+## Adición
+
+- Agregar nuevas entidades a las colecciones.
+- Generación automática de identificadores.
+- Validación de datos de ingreso mediante excepciones.
+- Validación de atributos repetidos.
+- Alta de nuevas entidades.
+
+## Edición
+
+- Modificación de atributos de las entidades.
+- Validaciones de ingreso mediante excepciones.
+- Edición de pedidos:
+  - Incorporación de productos.
+  - Eliminación de productos.
+  - Modificación de cantidades.
+  - Actualización automática de subtotales y totales.
+
+## Eliminación
+
+- Eliminación de categorías con validación de productos asociados.
+- Eliminación de productos incluidos en pedidos.
+- Eliminación de usuarios conservando el historial.
+
+---
+
+# Dataset
+
+Además de los datos ingresados por el usuario, el sistema cuenta con entidades precargadas.
+
+## Categoría
+
+**Atributos**
+
+- Nombre
+- Descripción
+
+**Relaciones**
+
+- 1 a N con Productos
+
+## Producto
+
+**Atributos**
+
+- Nombre
+- Descripción
+- Precio
+- Stock
+- Disponibilidad
+- Imagen
+- Categoría
+
+**Relaciones**
+
+- N a 1 con Categoría
+- 1 a N con DetallePedido
+
+## Usuario
+
+**Atributos**
+
+- Nombre
+- Apellido
+- Mail
+- Celular
+- Contraseña
+- Rol
+
+**Relaciones**
+
+- 1 a N con Pedido
+
+## Pedido
+
+**Atributos**
+
+- Forma de Pago
+- Estado
+
+**Relaciones**
+
+- 1 a N con DetallePedido
+- N a 1 con Usuario
+
+## DetallePedido
+
+**Atributos**
+
+- Cantidad
+- Producto
+
+**Relaciones**
+
+- N a 1 con Pedido
+- N a 1 con Producto
+
+---
+
+# Ejemplos de entidades
+
+```java
+Categoria verduras =
+    new Categoria("Verduras",
+                  "Tubérculos, raíces, bulbos, hojas");
+
+Producto papa =
+    new Producto("Papa",
+                 5,
+                 "Tubérculo",
+                 30,
+                 "C:/Imagenes/papa.jpg",
+                 true,
+                 verduras.getId());
+
+Usuario usuario =
+    new Usuario("Jose",
+                "Mengano",
+                "menganito88@mailfalso.com",
+                "2215558833",
+                "menga123",
+                Rol.ADMIN);
+```
+
+```java
 ArrayList<Integer> cantidadesJuan1 = new ArrayList<>();
-        cantidadesJuan1.add(5);
-        cantidadesJuan1.add(10);
-        ArrayList<Producto> productosJuan1 = new ArrayList<>();
-        productosJuan1.add(papa);
-        productosJuan1.add(carne);
-Pedido(FormaPago.EFECTIVO, juanPerez.getId(), cantidadesJuan1, productosJuan1)
+cantidadesJuan1.add(5);
+cantidadesJuan1.add(10);
 
-El programa incluye validaciones para:
+ArrayList<Producto> productosJuan1 = new ArrayList<>();
+productosJuan1.add(papa);
+productosJuan1.add(carne);
 
-nombres vacíos,
-stock negativo,
-precios negativos,
-formato inválido de correo
-tipos de datos inválidos
-búsqueda de entidades inexistentes
-búsuqeda de atributos inexistentes o vacíos
-duplicación de atributos 
-duplicación de entidades
+Pedido pedido =
+    new Pedido(FormaPago.EFECTIVO,
+               juanPerez.getId(),
+               cantidadesJuan1,
+               productosJuan1);
+```
 
-Instrucciones de uso
-Instalar Java 17.x.
-Descargar todos los archivos del repositorio.
-Ejecutar desde la consola.
-Navegar usando los números del menú principal.
+---
 
-Ejemplos de entrada y salida.
+# Validaciones implementadas
 
----- Sistema de pedidos ---
-   --- MENÚ PRINCIPAL --- 
+El programa contempla validaciones para:
 
-1- Categorias 
-2- Productos 
+- Nombres vacíos.
+- Stock negativo.
+- Precios negativos.
+- Formato inválido de correo electrónico.
+- Tipos de datos inválidos.
+- Búsqueda de entidades inexistentes.
+- Búsqueda de atributos inexistentes o vacíos.
+- Duplicación de atributos.
+- Duplicación de entidades.
+
+---
+
+# Instrucciones de uso
+
+## Requisitos
+
+- Java 17 o superior.
+
+## Ejecución
+
+1. Descargar todos los archivos del repositorio.
+2. Compilar el proyecto.
+3. Ejecutar la aplicación desde consola.
+4. Navegar utilizando las opciones del menú principal.
+
+---
+
+# Ejemplos de uso
+
+## Menú principal
+
+```text
+---- Sistema de pedidos ----
+
+--- MENÚ PRINCIPAL ---
+
+1- Categorías
+2- Productos
 3- Usuarios
-4- Pedidos 
-0- Salir 
+4- Pedidos
+0- Salir
+```
 
---- Ejemplo 1 ---
+## Ejemplo 1: Eliminar categoría
 
-Entrada: 1
+### Entrada
 
------ CATEGORIAS ------
-1- Listar 
-2- Crear 
+```text
+1
+```
+
+### Salida
+
+```text
+----- CATEGORÍAS ------
+1- Listar
+2- Crear
 3- Editar
-4- Eliminar 
+4- Eliminar
 0- Volver al menú anterior
+```
 
+### Entrada
 
-Entrada: 4
+```text
+4
+```
 
-Salida: 
-============================================ 
-categoria1 #1 | Nombre : #nombre | Descripcion: #descripcion
-categoria1 #2 | Nombre : #nombre | Descripcion: #descripcion
-categoria1 #3 | Nombre : #nombre | Descripcion: #descripcion
-categoria1 #4 | Nombre : #nombre | Descripcion: #descripcion
+### Salida
 
-Entrada: 2
-Salida: 
+```text
+============================================
+Categoría #1 | Nombre: nombre | Descripción: descripcion
+Categoría #2 | Nombre: nombre | Descripción: descripcion
+Categoría #3 | Nombre: nombre | Descripción: descripcion
+Categoría #4 | Nombre: nombre | Descripción: descripcion
+```
 
-"Desea eliminar la categoría con id #" + idInput(2) + " (S/N)"
+### Entrada
 
-Entrada: S
+```text
+2
+```
 
-Salida: 
+### Salida
 
-"Se eliminó la categoria con id: " + id(2).
-o
-La categoría " + categoriaAEliminar.getNombre() + " tiene productos asociados."
+```text
+¿Desea eliminar la categoría con id #2? (S/N)
+```
 
+### Entrada
 
-Notas finales
-El programa fue desarrollado siguiendo los lineamientos de Programación II aplicando buenas prácticas en:
+```text
+S
+```
 
-Modularización.
-Manejo de excepciones.
-Relaciones 1 a N.
-Herencia y polimorfismo.
-Validación de datos.
-Separación por responsabilidades.
-Estructuración del menú interactivo.
+### Resultado posible
+
+```text
+Se eliminó la categoría con id: 2
+```
+
+### Resultado alternativo
+
+```text
+La categoría Verduras tiene productos asociados.
+```
+
+---
+
+# Conceptos aplicados
+
+Durante el desarrollo se implementaron los siguientes conceptos de Programación II:
+
+- Programación Orientada a Objetos.
+- Modularización.
+- Manejo de excepciones.
+- Relaciones 1 a N.
+- Herencia.
+- Polimorfismo.
+- Validación de datos.
+- Separación de responsabilidades.
+- Estructuración mediante menú interactivo.
+
+---
+
+# Autor
+
+**Rodrigo Arnaiz**  
+Trabajo Práctico Integrador – Programación II
