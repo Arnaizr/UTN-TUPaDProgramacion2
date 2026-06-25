@@ -317,6 +317,17 @@ Durante el desarrollo se implementaron los siguientes conceptos de Programación
 
 ---
 
+# Multimedia
+
+Se incorpora:
+
+- Link a video de ejecución del código:
+
+
+- Link a archivo con documentación académica y teórica:
+
+
+
 # Autor
 
 **Rodrigo Arnaiz**  
