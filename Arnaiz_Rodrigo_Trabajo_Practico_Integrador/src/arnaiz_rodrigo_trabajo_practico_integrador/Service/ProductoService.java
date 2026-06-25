@@ -70,14 +70,14 @@ public class ProductoService {
             if (idCategoria != null) {
                 categoriaAInstanciar = categoriaService.findCategoriaById(idCategoria); // si falla lanza la excepción EntityNotFound y no se modificaron los otros atributos
             }
-            if (precio != null && !Validaciones.validarDoubleNoNegativo(precio)){ // si falla lanza la excepción antes de editar nada
+            if (precio != null && Validaciones.validarDoubleNoNegativo(precio)){ // si falla lanza la excepción antes de editar nada
                 throw new InvalidFieldException("El precio debe ser positivo.");
             }
-            if (stock != null && !Validaciones.validarIntNoNegativo(stock)){ //si falla lanza la excepción antes de editar nada
+            if (stock != null && Validaciones.validarIntNoNegativo(stock)){ //si falla lanza la excepción antes de editar nada
                 throw new InvalidFieldException("El stock no puede ser negativo.");
             }
             if (nombre != null && !Validaciones.validarStringNoVacio(nombre)){ //si falla lanza la excepción antes de editar nada
-                throw new InvalidFieldException("El nombre no puede ser negativo.");
+                throw new InvalidFieldException("El nombre no puede estar vacío.");
             }
             if (nombre != null){
                 productoAEditar.setNombre(nombre);

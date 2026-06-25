@@ -82,12 +82,9 @@ public class MenuCategoria {
         
         System.out.println("Ingrese el nuevo valor: ");
         String nuevoValor = MenuPrincipal.leerAtributo();
-        try {
-            categoriaService.editCategoria(idInput, campoAEditar, nuevoValor);
-        }
-        catch (EntityNotFoundException | DuplicateEntityException | InvalidFieldException e){
-            System.out.println(e.getMessage());
-        }
+        
+        //Se llama directamente al método porque maneja excepciones internamemte
+        categoriaService.editCategoria(idInput, campoAEditar, nuevoValor);
         MenuPrincipal.inputParaContinuar();
     }
     

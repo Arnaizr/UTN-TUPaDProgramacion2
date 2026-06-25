@@ -105,21 +105,21 @@ public class Pedido extends Base implements Calculable {
         Iterator<DetallePedido> it = this.detalles.iterator(); //Se crea un iterador para la búsqueda
         while (it.hasNext() && detalleEncontrado == null){ //Se repite mientras haya detalles en la colección y mientras no encuentre el producto
             DetallePedido detalle = it.next(); //Se carga el libro actual de la iteración de la colección
-            if (detalle.getProducto().getId() == producto.getId()){
-                detalleEncontrado = detalle;
+            if (detalle.getProducto().getId() == producto.getId() && !detalle.isEliminado()){ 
+                detalleEncontrado = detalle;//Si coinciden los id y el detalle no está eliminado se almacena el valor
             }
         }
         return detalleEncontrado;
     }
-
-    //Método para eliminar un detalle por su producto asociado
+    
+    //Método para eliminar un pedido por el producto asociado
     public void deleteDetallePedidoByProducto(Producto producto){
-        DetallePedido detalleAEliminar = findDetallePedidoByProducto(producto); //Se busca el detalle con el producto ingresado
+        DetallePedido detalleAEliminar = findDetallePedidoByProducto(producto);
         if (detalleAEliminar == null){
             System.out.println("No se encontró un detalle con el producto " + producto.getNombre());
         }
         else{
-            detalles.remove(detalleAEliminar); //Se elimina el detalle del pedido
+            detalleAEliminar.setEliminado(true); //Se hace un soft delete dejando el detalle en el historial
             System.out.println("Se eliminó el detalle con el producto " + producto.getNombre());
             calcularTotal();
         }

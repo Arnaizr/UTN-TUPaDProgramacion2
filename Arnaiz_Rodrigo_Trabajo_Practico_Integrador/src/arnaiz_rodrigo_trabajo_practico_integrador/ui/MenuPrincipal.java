@@ -92,7 +92,7 @@ public class MenuPrincipal {
                 valido = (texto.trim().toLowerCase().equals("s") || texto.trim().toLowerCase().equals("n"));
                 if (!valido){System.out.println("Opción incorrecta. Ingrese \"S\" o \"N\"");}
             }
-        return texto.equals("s");
+        return texto.toLowerCase().equals("s");
     }
     
     public static int leerIndiceValido(int cantidadOpciones){

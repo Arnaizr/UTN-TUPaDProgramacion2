@@ -95,6 +95,7 @@ public class MenuPedido {
         }
         if (cantidades.isEmpty() || productos.isEmpty()){ //Si hubo una excepción y se salió del bucle se vuelve
             System.out.println("No se agregaron productos para cargar.");
+            MenuPrincipal.inputParaContinuar();
             return;
         }
 
@@ -141,7 +142,8 @@ public class MenuPedido {
             int indiceEstado = MenuPrincipal.leerIndiceValido(estados.length);
             nuevoValor = estados[indiceEstado - 1].name();
         }
-        pedidoService.editPedido(idInput, campoAEditar, nuevoValor); //Se llama directamente al método porque maneja entitynotfound internamemte        
+        //Se llama directamente al método porque maneja excepciones internamemte        
+        pedidoService.editPedido(idInput, campoAEditar, nuevoValor); 
         MenuPrincipal.inputParaContinuar();
     }
     
@@ -219,6 +221,7 @@ public class MenuPedido {
             DetallePedido detalleEncontrado = pedidoEncontrado.findDetallePedidoByProducto(productoEncontrado);
             if (detalleEncontrado == null){
                 System.out.println("No se encontró un detalle con ese producto en el pedido.");
+                MenuPrincipal.inputParaContinuar();
                 return;
             }
             System.out.println("Ingrese la nueva cantidad: ");

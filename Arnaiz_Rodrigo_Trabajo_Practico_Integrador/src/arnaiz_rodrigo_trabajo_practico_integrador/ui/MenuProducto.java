@@ -118,13 +118,9 @@ public class MenuProducto {
             idCategoriaInput = (long) MenuPrincipal.leerIntNoNegativo();
         }
 
-        try {
-            //Se envían todos los parámetros y productoService maneja internamente cuáles son != null y los edita
-            productoService.editProducto(idInput, nombreInput, precioInput, descripcionInput, stockInput, imagenInput, disponibleInput, idCategoriaInput);
-        }
-        catch (EntityNotFoundException | InvalidFieldException e){
-            System.out.println(e.getMessage());
-        }
+        //Se envían todos los parámetros y productoService maneja internamente cuáles son != null y los edita
+        productoService.editProducto(idInput, nombreInput, precioInput, descripcionInput, stockInput, imagenInput, disponibleInput, idCategoriaInput);      
+        //Se llama directamente al método porque maneja excepciones internamemte
         MenuPrincipal.inputParaContinuar();
     }
     

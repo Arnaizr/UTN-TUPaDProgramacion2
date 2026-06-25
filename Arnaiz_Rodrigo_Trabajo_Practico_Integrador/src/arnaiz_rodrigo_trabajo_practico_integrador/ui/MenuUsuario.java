@@ -20,7 +20,7 @@ public class MenuUsuario {
         System.out.println("2. Crear");
         System.out.println("3. Editar");
         System.out.println("4. Eliminar");
-        System.out.println("5. Informar pedidos de usuario");
+        System.out.println("5. Informar historial de pedidos de un usuario");
         System.out.println("0. Volver al menú anterior");
     }
     
@@ -35,7 +35,7 @@ public class MenuUsuario {
                 case 2 -> submenuCrear(usuarioService);
                 case 3 -> submenuEditar(usuarioService);
                 case 4 -> submenuEliminar(usuarioService);
-                case 5 -> submenuMostrarPedidosDeUsuario(usuarioService);
+                case 5 -> submenuMostrarHistorialDeUsuario(usuarioService);
                 case 0 -> System.out.println("");
                 default -> System.out.println("\"" + opcion + "\" no es una opción válida, inténtelo nuevamente.");
             }
@@ -102,6 +102,7 @@ public class MenuUsuario {
             System.out.println("Ingrese la nueva contraseña: ");
             String contraseniaNueva = MenuPrincipal.leerAtributo();
             usuarioService.cambiarContrasenia(idInput, contraseniaActual, contraseniaNueva);
+            MenuPrincipal.inputParaContinuar();
             return;
         }
         
@@ -119,12 +120,7 @@ public class MenuUsuario {
             nuevoValor = MenuPrincipal.leerAtributo();
         }
 
-        try {
-            usuarioService.editUsuario(idInput, campoAEditar, nuevoValor);
-        }
-        catch (EntityNotFoundException | DuplicateMailException | InvalidFieldException e){
-            System.out.println(e.getMessage());
-    }
+        usuarioService.editUsuario(idInput, campoAEditar, nuevoValor);//Se llama directamente al método porque maneja excepciones internamente
         MenuPrincipal.inputParaContinuar();
 }
     
@@ -142,15 +138,15 @@ public class MenuUsuario {
     }
     
     
-    //Método para mostrar los pedidos activos de un usuario
-    public static void submenuMostrarPedidosDeUsuario (UsuarioService usuarioService){
+    //Método para mostrar el historial de los pedidos activos de un usuario (eliminado o no)
+    public static void submenuMostrarHistorialDeUsuario (UsuarioService usuarioService){
         System.out.println("\n--- Mostrar historial de pedidos de Usuario ---\n");
-        //Se listan los usuarios para ver los datos y facilitar las pruebas
-        usuarioService.listarUsuarios();
+        //Se listan los usuarios todos los usuarios del historial para ver los datos y facilitar las pruebas
+        usuarioService.listarUsuariosConEliminados();
         System.out.println("Por favor, ingrese el id del usuario del informe: ");
         long idInput = MenuPrincipal.leerIntNoNegativo();
         try{
-            Usuario usuarioInforme = usuarioService.findUsuarioById(idInput);
+            Usuario usuarioInforme = usuarioService.findUsuarioByIdWithEliminados(idInput);
             usuarioInforme.mostrarTotalPedidos();
         }
         catch (EntityNotFoundException e){

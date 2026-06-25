@@ -40,6 +40,18 @@ public class UsuarioService {
         System.out.println("=======================================================================================================\n");
     }
     
+        public void listarUsuariosConEliminados(){
+        if (usuarios.isEmpty()){
+            System.out.println("No hay usuarios cargados en el sistema.");
+            return;
+        }
+        System.out.println("=======================================================================================================");
+        for (Usuario usuario : usuarios) {
+            System.out.println(usuario + " | Eliminado: " + (usuario.isEliminado() ? "SI" : "NO" ));
+        }
+        System.out.println("=======================================================================================================\n");
+    }
+    
     public Usuario createUsuario(String nombre, String apellido, String mail, String celular, String contrasenia, Rol rol){
         if (existeMail(mail)){
             throw new DuplicateMailException("Ya existe un usuario con el mail: " + mail);
@@ -54,7 +66,7 @@ public class UsuarioService {
         Iterator<Usuario> it = this.usuarios.iterator(); //Se crea un iterador para la búsqueda
         while (it.hasNext() && usuarioEncontrado == null){ //Se repite mientras haya usuarios en la colección y mientras no encuentre el usuario
             Usuario usuarioBucle = it.next(); //Se carga el usuario actual de la iteración de la colección
-            if (id == usuarioBucle.getId()&& !usuarioBucle.isEliminado()){
+            if (id == usuarioBucle.getId()&& !usuarioBucle.isEliminado()){ //Se verifica que coincida el id y que no esté eliminado
                 usuarioEncontrado = usuarioBucle;
             }
         }
@@ -63,6 +75,23 @@ public class UsuarioService {
         }
         return usuarioEncontrado;
     }
+    
+    //Método para buscar cualquier usuario por su id asociado (eliminado o no)
+    public Usuario findUsuarioByIdWithEliminados(long id){
+        Usuario usuarioEncontrado = null; //Se inicializa en null la variable de usuario encontrado
+        Iterator<Usuario> it = this.usuarios.iterator(); //Se crea un iterador para la búsqueda
+        while (it.hasNext() && usuarioEncontrado == null){//Se repite mientras haya usuarios en la colección y mientras no encuentre el usuario
+            Usuario usuarioBucle = it.next(); //Se carga el usuario actual de la iteración de la colección
+            if (id == usuarioBucle.getId()){ // sin el chequeo de !isEliminado()
+                usuarioEncontrado = usuarioBucle;
+            }
+        }
+        if (usuarioEncontrado == null){
+            throw new EntityNotFoundException("No se encontró un usuario con id: " + id);
+        }
+        return usuarioEncontrado;
+    }
+    
     //Método para eliminar un usuario por su id
     public void deleteUsuarioById(long id){
         try {

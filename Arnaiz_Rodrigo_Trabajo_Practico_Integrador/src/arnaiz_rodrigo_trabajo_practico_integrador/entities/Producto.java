@@ -104,12 +104,6 @@ public class Producto extends Base{
             categoria.agregarProducto(this);
         }
     }
-    //Métodos
-    //Método para mostrar información completa del producto
-    public void mostrarInfo(){
-        System.out.println("Producto: #[" + getId() + "] | [" + nombre + "] | Precio: [$" + String.format("%.2f", precio) + "]| Stock: [" + stock + "]\n" +
-                imagen + "\nDescripción: [" + descripcion + ".\nDisponible: " + (disponible ? "Si" : "No") + "\n");
-    }
     
     @Override
     public String toString() {
