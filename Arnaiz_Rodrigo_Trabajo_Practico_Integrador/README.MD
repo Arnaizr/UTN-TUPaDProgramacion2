@@ -324,7 +324,7 @@ Se incorpora:
 - Link a video de ejecución del código: https://youtu.be/zOIo1SvxB8U
 
 
-- Link a archivo con documentación académica y teórica:
+- Link a archivo con documentación académica y teórica: https://drive.google.com/file/d/1PtAMS6EMwYD9QE9Xt17bNSZeivVJ_9mR/view?usp=sharing
 
 
 
